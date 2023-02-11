@@ -1,9 +1,9 @@
 import { Notify } from "notiflix";
 
 
-const delay = document.querySelector('input[name ='delay']');
-const step = document.querySelector('input[name ='step']');
-const amount = document.querySelector('input[name ='amount']');
+const elDelay = document.querySelector('input[name ="delay"]');
+const elStep = document.querySelector('input[name ="step"]');
+const elAmount = document.querySelector('input[name ="amount"]');
 const btn = document.querySelector('button');
 
 
@@ -17,15 +17,31 @@ function createPromise(position, delay) {
     }
     reject({position, delay});
   }, delay);
- 
 });
 }
 
 
-createPromise(2, 1500)
-  .then(({ position, delay }) => {
-    Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-  });
+const btnSuccess = ({ position, delay }) => {
+  Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+};
+const btnFailure = ({ position, delay }) => {
+  Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+};
+
+
+function onPromise (event) {
+  event.preventDefault();
+  let delay = Number(elDelay.value);
+  let step = Number(elStep.value);
+  let amount = Number(elAmount.value);
+
+  if(!amount){
+    amount = 1;
+
+  }
+ for (let i = 0; i < amount; i++) {
+  createPromise(i + 1, delay + step *i)
+  .then (btnSuccess).catch (btnFailure);
+ }
+}
+btn.addEventListener('click', onPromise);

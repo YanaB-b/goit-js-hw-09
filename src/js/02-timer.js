@@ -38,16 +38,14 @@ function convertMs(ms) {
   }
   
 
-const onTime ({ days, hours, minutes, seconds }) {
-
-    valueEl[0].textContent = `${days}`;
-    valueEl[1].textContent = `${hours}`;
-    valueEl[2].textContent = `${minutes}`; 
-    valueEl[3].textContent = `${seconds}`;
-
+function onTime({ days, hours, minutes, seconds }) {
+  valueEl[0].textContent = `${days}`;
+  valueEl[1].textContent = `${hours}`;
+  valueEl[2].textContent = `${minutes}`; 
+  valueEl[3].textContent = `${seconds}`;
 }
 
-
+  
   const options = {
     enableTime: true,
     time_24hr: true,
